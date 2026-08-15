@@ -70,7 +70,7 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
-            background: 
+            background:
                 radial-gradient(ellipse at 20% 50%, rgba(255, 107, 0, 0.12) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 20%, rgba(255, 184, 0, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 80%, rgba(255, 107, 0, 0.06) 0%, transparent 50%);
@@ -110,9 +110,11 @@
             text-decoration: none;
         }
 
-        .logo-icon {
-            font-size: 1.8rem;
-            animation: float 3s ease-in-out infinite;
+        .logo-img {
+            height: 4rem;
+            width: auto;
+            vertical-align: middle;
+            display: inline-block;
         }
 
         nav {
@@ -583,21 +585,21 @@
             height: 250px;
         }
 
-.chart-ring {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: conic-gradient(
-        var(--primary) 0% 99%,
-        var(--secondary) 99% 100%
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: chartSpin 30s linear infinite;
-    box-shadow: 0 0 40px rgba(255, 107, 0, 0.3);
-}
+        .chart-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--primary) 0% 99%,
+                var(--secondary) 99% 100%
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: chartSpin 30s linear infinite;
+            box-shadow: 0 0 40px rgba(255, 107, 0, 0.3);
+        }
 
         @keyframes chartSpin {
             from { transform: rotate(0deg); }
@@ -621,8 +623,9 @@
             z-index: 1;
         }
 
-        .chart-center .emoji {
-            font-size: 2.5rem;
+        .logo-center {
+            width: 150px;
+            height: auto;
             animation: float 3s ease-in-out infinite;
         }
 
@@ -650,6 +653,73 @@
             width: 10px;
             height: 10px;
             border-radius: 50%;
+        }
+
+        /* Stats Grid (Why Now) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+        }
+
+        .stat-card .label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Roadmap */
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .roadmap-phase {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .roadmap-phase .phase-badge {
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #000;
+        }
+
+        .phase-badge.orange { background: var(--primary); }
+        .phase-badge.gold { background: var(--secondary); }
+
+        .roadmap-phase h3 {
+            margin: 0.8rem 0 0.3rem;
+        }
+
+        .roadmap-phase p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         /* Community */
@@ -712,6 +782,19 @@
         .scroll-animate.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* CTA Block */
+        .cta-block {
+            text-align: center;
+            padding: 2rem 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-block .btn {
+            font-size: 1.2rem;
+            padding: 1rem 3rem;
         }
 
         /* Footer */
@@ -799,7 +882,7 @@
             cursor: pointer;
         }
 
-        /* Responsive */
+        /* ===== MOBILE ADAPTATION ===== */
         @media (max-width: 768px) {
             nav { display: none; }
             .mobile-menu-btn { display: block; }
@@ -822,6 +905,36 @@
             .orbit-ring-2 {
                 width: 170px;
                 height: 170px;
+            }
+
+            /* Затемняем фон для читаемости текста */
+            #bg-canvas {
+                opacity: 0.2 !important;
+            }
+            .aurora {
+                opacity: 0.15 !important;
+            }
+            .grid-overlay {
+                opacity: 0.02 !important;
+            }
+            .mouse-glow {
+                display: none !important;
+            }
+
+            /* Добавляем затемняющий слой поверх фона, но под контентом */
+            .hero, section, .cta-block, footer {
+                position: relative;
+            }
+            .hero::before, section::before, .cta-block::before, footer::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(10, 10, 15, 0.7);
+                z-index: -1;
+                pointer-events: none;
             }
         }
 
@@ -862,7 +975,7 @@
             51%, 100% { opacity: 0; }
         }
 
-        /* Parallax grid overlay with more dynamic effect */
+        /* Parallax grid overlay */
         .grid-overlay {
             position: fixed;
             top: 0;
@@ -872,7 +985,7 @@
             z-index: 0;
             pointer-events: none;
             opacity: 0.05;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(255, 107, 0, 0.4) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 107, 0, 0.4) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -896,18 +1009,6 @@
                 rgba(0, 0, 0, 0.03) 4px
             );
         }
-.logo-img {
-    height: 4rem;
-    width: auto;
-    vertical-align: middle;
-    display: inline-block;
-}
-
-.logo-center {
-    width: 150px;
-    height: auto;
-    animation: float 3s ease-in-out infinite;
-}
     </style>
 </head>
 <body>
@@ -922,20 +1023,24 @@
     <div class="mobile-nav" id="mobile-nav">
         <button class="close-menu" id="close-menu">✕</button>
         <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#whynow" onclick="closeMobileMenu()">Why Now</a>
         <a href="#tokenomics" onclick="closeMobileMenu()">Token</a>
+        <a href="#roadmap" onclick="closeMobileMenu()">Roadmap</a>
         <a href="#community" onclick="closeMobileMenu()">Community</a>
         <a href="https://t.me/Molum_bot" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Launch App</a>
     </div>
 
     <!-- Header -->
     <header id="header">
-<a href="#" class="logo">
-    <img src="logo.png" alt="Molum logo" class="logo-img">
-    Molum
-</a>
+        <a href="#" class="logo">
+            <img src="logo.png" alt="Molum logo" class="logo-img">
+            Molum
+        </a>
         <nav>
             <a href="#about">About</a>
+            <a href="#whynow">Why Now</a>
             <a href="#tokenomics">Token</a>
+            <a href="#roadmap">Roadmap</a>
             <a href="#community">Community</a>
             <a href="https://t.me/Molum_bot" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Launch App</a>
         </nav>
@@ -983,9 +1088,9 @@
             </div>
             <div class="orbit-ring"></div>
             <div class="orbit-ring orbit-ring-2"></div>
-<div class="chart-center">
-    <img src="logo.png" alt="Molum logo" class="logo-center">
-</div>
+            <div class="chart-center">
+                <img src="logo.png" alt="Molum logo" class="logo-center">
+            </div>
         </div>
     </section>
 
@@ -993,7 +1098,7 @@
     <section id="about">
         <h2 class="section-title scroll-animate">Why Molum?</h2>
         <p class="section-subtitle scroll-animate">Built by the pack, for the pack. No VCs. No rugs. Just clean AI-native infrastructure.</p>
-        
+
         <div class="features-grid">
             <div class="feature-card scroll-animate" style="transition-delay: 0.1s;">
                 <div class="feature-icon">🛡️</div>
@@ -1014,6 +1119,26 @@
                 <div class="feature-icon">⚡</div>
                 <h3>Scalable L3</h3>
                 <p>Ultra-low fees and lightning-fast finality, built on Arbitrum Orbit.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Now Section -->
+    <section id="whynow" class="scroll-animate">
+        <h2 class="section-title">Why Now?</h2>
+        <p class="section-subtitle">The AI-agent economy is exploding — and most chains are filled with garbage. Molum is the clean alternative.</p>
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="number">$3.2B+</span>
+                <span class="label">AI-agent token sector size</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">176M+</span>
+                <span class="label">On-chain transactions by AI agents (last year)</span>
+            </div>
+            <div class="stat-card">
+                <span class="number">98.6%</span>
+                <span class="label">Of tokens on Pump.fun are scams</span>
             </div>
         </div>
     </section>
@@ -1051,19 +1176,47 @@
                 <div class="chart-visual">
                     <div class="chart-ring"></div>
                     <div class="chart-center">
-                        <div class="emoji">🦊</div>
+                        <img src="logo.png" alt="Molum logo" class="logo-center">
                     </div>
                 </div>
-<div class="chart-legend">
-    <div class="legend-item">
-        <div class="legend-dot" style="background: var(--primary);"></div>
-        Community 99%
-    </div>
-    <div class="legend-item">
-        <div class="legend-dot" style="background: var(--secondary);"></div>
-        Team 1%
-    </div>
-</div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--primary);"></div>
+                        Community 99%
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background: var(--secondary);"></div>
+                        Team 1%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section id="roadmap" class="scroll-animate">
+        <h2 class="section-title">Roadmap</h2>
+        <p class="section-subtitle">From meme to clean L3 — here's how we get there.</p>
+        <div class="roadmap-grid">
+            <div class="roadmap-phase">
+                <span class="phase-badge orange">Phase 1</span>
+                <h3>Launch</h3>
+                <p>Meme coin launch on Pump.fun. Community building starts.</p>
+            </div>
+            <div class="roadmap-phase">
+                <span class="phase-badge gold">Phase 2</span>
+                <h3>Growth</h3>
+                <p>Reach $1M MCAP, secure liquidity, list on DEX.</p>
+            </div>
+            <div class="roadmap-phase">
+                <span class="phase-badge orange">Phase 3</span>
+                <h3>L3 Testnet</h3>
+                <p>Deploy clean L3 for AI agents on Arbitrum Orbit testnet.</p>
+            </div>
+            <div class="roadmap-phase">
+                <span class="phase-badge gold">Phase 4</span>
+                <h3>Mainnet</h3>
+                <p>Full mainnet launch with AI agent smart contracts.</p>
             </div>
         </div>
     </section>
@@ -1096,6 +1249,11 @@
             </a>
         </div>
     </section>
+
+    <!-- CTA Block -->
+    <div class="cta-block">
+        <a href="https://t.me/molum_chain_official" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🚀 Join the Pack Now</a>
+    </div>
 
     <!-- Footer -->
     <footer>
@@ -1153,7 +1311,6 @@
                 this.y += this.vy;
                 this.pulse += this.pulseSpeed;
 
-                // Mouse interaction
                 const dx = mouseX - this.x;
                 const dy = mouseY - this.y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
@@ -1167,7 +1324,6 @@
                     this.alpha = this.baseAlpha + 0.1 * Math.sin(this.pulse);
                 }
 
-                // Wrap around edges
                 if (this.x < -10) this.x = canvas.width + 10;
                 if (this.x > canvas.width + 10) this.x = -10;
                 if (this.y < -10) this.y = canvas.height + 10;
@@ -1180,8 +1336,6 @@
                 ctx.fillStyle = this.color;
                 ctx.globalAlpha = this.alpha;
                 ctx.fill();
-                ctx.globalAlpha = 1;
-                // Glow
                 ctx.shadowColor = this.color;
                 ctx.shadowBlur = 10;
                 ctx.fill();
@@ -1189,7 +1343,6 @@
             }
         }
 
-        // Initialize particles
         for (let i = 0; i < PARTICLE_COUNT; i++) {
             particles.push(new Particle());
         }
@@ -1212,7 +1365,6 @@
                     }
                 }
 
-                // Mouse connections
                 const dx = mouseX - particles[i].x;
                 const dy = mouseY - particles[i].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
@@ -1249,8 +1401,7 @@
             mouseY = e.clientY;
             mouseGlow.style.left = e.clientX + 'px';
             mouseGlow.style.top = e.clientY + 'px';
-            
-            // Parallax grid
+
             const gridX = (e.clientX / window.innerWidth - 0.5) * 15;
             const gridY = (e.clientY / window.innerHeight - 0.5) * 15;
             gridOverlay.style.transform = `translate(${gridX}px, ${gridY}px)`;
@@ -1271,7 +1422,7 @@
             mobileNav.classList.remove('active');
         }
 
-        // ===== Scroll Animations (Intersection Observer) =====
+        // ===== Scroll Animations =====
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1281,8 +1432,7 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
-                    
-                    // Stagger token rows
+
                     if (entry.target.classList.contains('token-row')) {
                         const delay = entry.target.dataset.delay || 0;
                         setTimeout(() => {
@@ -1307,34 +1457,31 @@
         const originalText = 'The first community-funded, scam-free L3 blockchain built for autonomous AI agents.';
         const typingContainer = document.createElement('span');
         typingContainer.className = 'typing-text';
-        
-        // Replace text node with typing container
+
         const textNode = subtitleEl.childNodes[0];
         subtitleEl.insertBefore(typingContainer, typingCursor);
 
         let charIndex = 0;
+
         function typeText() {
             if (charIndex < originalText.length) {
                 typingContainer.textContent += originalText.charAt(charIndex);
                 charIndex++;
                 setTimeout(typeText, 25 + Math.random() * 35);
             } else {
-                // Remove cursor after typing completes
                 setTimeout(() => {
                     typingCursor.style.display = 'none';
                 }, 2000);
             }
         }
 
-        // Start typing after hero animation
         setTimeout(typeText, 1500);
 
         // ===== Header Scroll Effect =====
-        let lastScrollY = 0;
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
             const currentScrollY = window.scrollY;
-            
+
             if (currentScrollY > 100) {
                 header.style.padding = '0.5rem 2rem';
                 header.style.background = 'rgba(10, 10, 15, 0.9)';
@@ -1342,13 +1489,11 @@
                 header.style.padding = '1rem 2rem';
                 header.style.background = 'rgba(10, 10, 15, 0.7)';
             }
-            
-            lastScrollY = currentScrollY;
         });
 
-        // ===== Smooth scroll for anchor links =====
+        // ===== Smooth scroll =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
@@ -1360,7 +1505,7 @@
             });
         });
 
-        // ===== Touch support for mobile =====
+        // ===== Touch support =====
         document.addEventListener('touchmove', (e) => {
             const touch = e.touches[0];
             mouseX = touch.clientX;
